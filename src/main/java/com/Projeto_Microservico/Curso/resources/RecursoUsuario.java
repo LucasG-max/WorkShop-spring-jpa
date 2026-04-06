@@ -13,7 +13,8 @@ public class RecursoUsuario {
 
 	@GetMapping
 	public ResponseEntity<Usuario> Returno_Usuario(){
-		Usuario user = new Usuario(1L,"Lucas","Lucas@gmail.com","1111-1111","admin");
-		return ResponseEntity.ok().body(user);
+		Usuario user1 = new Usuario(1L,"Lucas","Lucas@gmail.com","1111-1111","admin");
+
+		return ResponseEntity.ok().body(user1);
 	}
 }
