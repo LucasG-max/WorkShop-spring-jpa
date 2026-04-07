@@ -13,8 +13,8 @@ import com.Projeto_Microservico.Curso.entities.Categoria;
 import com.Projeto_Microservico.Curso.service.ServicoCategoria;
 
 @RestController
-@RequestMapping(value = "/categorias")
-public class RecursoPedido {
+@RequestMapping(value = "/Categoria")
+public class RecursoCategoria {
 
 	@Autowired
 	private ServicoCategoria servicoCategoria;
