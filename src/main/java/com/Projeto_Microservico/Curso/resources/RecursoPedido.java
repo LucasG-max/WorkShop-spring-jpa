@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Projeto_Microservico.Curso.entities.Categoria;
-import com.Projeto_Microservico.Curso.service.ServicoCategoria;
+import com.Projeto_Microservico.Curso.entities.Pedidos;
+import com.Projeto_Microservico.Curso.service.ServicoPedidos;
 
 @RestController
-@RequestMapping(value = "/categorias")
+@RequestMapping(value = "/Pedidoss")
 public class RecursoPedido {
 
 	@Autowired
-	private ServicoCategoria servicoCategoria;
+	private ServicoPedidos servicoPedidos;
 
 	@GetMapping
-	public ResponseEntity<List<Categoria>> EncontrarUsuario() {
-		List<Categoria> lista = servicoCategoria.findAll();
+	public ResponseEntity<List<Pedidos>> EncontrarUsuario() {
+		List<Pedidos> lista = servicoPedidos.findAll();
 		return ResponseEntity.ok().body(lista);
 
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Categoria> EncontrarID(@PathVariable long id) {
-		Categoria obj = servicoCategoria.encontrarId(id);
+	public ResponseEntity<Pedidos> EncontrarID(@PathVariable long id) {
+		Pedidos obj = servicoPedidos.encontrarId(id);
 		return ResponseEntity.ok().body(obj);
 	}
 

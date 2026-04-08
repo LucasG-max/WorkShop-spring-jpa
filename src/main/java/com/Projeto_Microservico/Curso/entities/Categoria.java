@@ -1,12 +1,15 @@
 package com.Projeto_Microservico.Curso.entities;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_categoria")
@@ -19,7 +22,8 @@ public class Categoria  implements Serializable {
 	private Long id;
 
 	private String nome;
-
+	@Transient
+	private Set<Produto> categorias = new HashSet<>();
 	public Categoria() {
 	}
 

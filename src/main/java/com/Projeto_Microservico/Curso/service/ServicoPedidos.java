@@ -13,14 +13,14 @@ import com.Projeto_Microservico.Curso.repositories.RepositorioPedidos;
 public class ServicoPedidos {
 
 	@Autowired
-	private RepositorioPedidos repositorio;
+	private RepositorioPedidos repositorioP;
 	
 	public List <Pedidos> findAll(){
-		return repositorio.findAll();
+		return repositorioP.findAll();
 	}
 	
 	public Pedidos encontrarId(long id) {
-		Optional<Pedidos> obj = repositorio.findById(id);
+		Optional<Pedidos> obj = repositorioP.findById(id);
 		return obj.get();
 	}
 	

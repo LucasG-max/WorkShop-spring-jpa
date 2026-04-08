@@ -13,16 +13,16 @@ import com.Projeto_Microservico.Curso.repositories.RepositorioCategoria;
 public class ServicoCategoria {
 
 	@Autowired
-	private RepositorioCategoria repositorio;
-	
-	public List <Categoria> findAll(){
-		return repositorio.findAll();
+	private RepositorioCategoria repositorioC;
+
+	public List<Categoria> findAll() {
+		return repositorioC.findAll();
 	}
-	
+
 	public Categoria encontrarId(long id) {
-		Optional<Categoria> obj = repositorio.findById(id);
+		Optional<Categoria> obj = repositorioC.findById(id);
 		return obj.get();
-	
+
 	}
-	
+
 }
