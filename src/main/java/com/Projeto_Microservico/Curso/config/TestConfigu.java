@@ -48,6 +48,16 @@ public class TestConfigu implements CommandLineRunner {
 		Categoria cat2 = new Categoria(null, "Books");
 		Categoria cat3 = new Categoria(null, "Computers");
 		repositorioCategoria.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
+		pro1.getCategorias().add(cat2);
+		pro2.getCategorias().add(cat1);
+		pro2.getCategorias().add(cat3);
+		pro3.getCategorias().add(cat3);
+		pro4.getCategorias().add(cat3);
+		pro5.getCategorias().add(cat2);
+		
+		repositorioProduto.saveAll(Arrays.asList(pro1,pro2,pro3,pro4,pro5));
+		
 	
 		Usuario u1 = new Usuario(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
 		Usuario u2 = new Usuario(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
