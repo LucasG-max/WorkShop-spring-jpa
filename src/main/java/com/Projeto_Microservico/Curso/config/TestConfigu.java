@@ -13,6 +13,7 @@ import com.Projeto_Microservico.Curso.entities.ItemPedido;
 import com.Projeto_Microservico.Curso.entities.Pedidos;
 import com.Projeto_Microservico.Curso.entities.Produto;
 import com.Projeto_Microservico.Curso.entities.Usuario;
+import com.Projeto_Microservico.Curso.entities.enums.StatusPedido;
 import com.Projeto_Microservico.Curso.repositories.RepositorioCategoria;
 import com.Projeto_Microservico.Curso.repositories.RepositorioItemPedido;
 import com.Projeto_Microservico.Curso.repositories.RepositorioPedidos;
@@ -68,9 +69,9 @@ public class TestConfigu implements CommandLineRunner {
 		Usuario user2 = new Usuario(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
 		repositorioUsuarios.saveAll(Arrays.asList(user1, user2));
 		
-		Pedidos pedido1 = new Pedidos(null, Instant.parse("2019-06-20T19:53:07Z"), user1);
-		Pedidos pedido2 = new Pedidos(null, Instant.parse("2019-07-21T03:42:10Z"), user2);
-		Pedidos pedido3 = new Pedidos(null, Instant.parse("2019-07-22T15:21:22Z"), user1);
+		Pedidos pedido1 = new Pedidos(null, Instant.parse("2019-06-20T19:53:07Z"),StatusPedido.PAGO ,user1);
+		Pedidos pedido2 = new Pedidos(null, Instant.parse("2019-07-21T03:42:10Z"),StatusPedido.AGUARDANDO_PAGAMENTO ,user2);
+		Pedidos pedido3 = new Pedidos(null, Instant.parse("2019-07-22T15:21:22Z"),StatusPedido.AGUARDANDO_PAGAMENTO  ,user1);
 		repositorioPedidos.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 		
 		ItemPedido ItemDePedido1 = new ItemPedido(pedido1, pro1, 2, pro1.getPreco());

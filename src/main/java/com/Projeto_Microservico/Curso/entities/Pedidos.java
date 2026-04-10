@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.Projeto_Microservico.Curso.entities.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
@@ -27,23 +28,22 @@ public class Pedidos implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-HH-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant momento;
+	
+	private Integer statusPedido;
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente;
 
-	@OneToMany
-	@JoinColumn(name = "pedidos_id")
-	private Produto produto;
-	
-	@OneToMany(mappedBy = "id.pedido")
+	@OneToMany(mappedBy = "id.pedidos")
 	private Set<ItemPedido> items = new HashSet<>();
 
-	public Pedidos(Long id, Instant momento, Usuario cliente) {
+	public Pedidos(Long id, Instant momento, StatusPedido statusPedido,Usuario cliente) {
 		this.id = id;
 		this.momento = momento;
+		setStatusPedido(statusPedido);
 		this.cliente = cliente;
 	}
 
@@ -70,8 +70,18 @@ public class Pedidos implements Serializable {
 	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
 	}
-	
-	public Set<ItemPedido> getPedidos(){
+
+	public StatusPedido getStatusPedido() {
+		return StatusPedido.ValueOf(statusPedido);
+	}
+
+	public void setStatusPedido(StatusPedido statusPedido) {
+		if(statusPedido != null) {
+		this.statusPedido = statusPedido.getCodigo();
+		}
+	}
+
+	public Set<ItemPedido> getItems(){
 		return items;
 	}
 
