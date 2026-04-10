@@ -2,7 +2,9 @@ package com.Projeto_Microservico.Curso.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,8 +34,12 @@ public class Pedidos implements Serializable {
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente;
 
-	public Pedidos() {
-	}
+	@OneToMany
+	@JoinColumn(name = "pedidos_id")
+	private Produto produto;
+	
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<ItemPedido> items = new HashSet<>();
 
 	public Pedidos(Long id, Instant momento, Usuario cliente) {
 		this.id = id;
@@ -62,6 +69,10 @@ public class Pedidos implements Serializable {
 
 	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Set<ItemPedido> getPedidos(){
+		return items;
 	}
 
 	@Override

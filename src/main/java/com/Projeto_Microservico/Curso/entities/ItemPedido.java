@@ -10,13 +10,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_pedido")
+@Table(name = "tb_item_pedido")
 public class ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@EmbeddedId
-	private PkItemPedido id;
+	private PkItemPedido id = new PkItemPedido();
 
 	private Integer quantidade;
 	private Double preco;
@@ -24,8 +24,7 @@ public class ItemPedido implements Serializable {
 	public ItemPedido() {
 	}
 
-	public ItemPedido(Produto produto, Pedidos pedidos, Integer quantidade, Double preco) {
-		super();
+	public ItemPedido(Pedidos pedidos, Produto produto, Integer quantidade, Double preco) {
 		id.setPedidos(pedidos);
 		id.setProduto(produto);
 		this.quantidade = quantidade;

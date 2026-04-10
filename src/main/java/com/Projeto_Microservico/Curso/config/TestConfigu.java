@@ -9,10 +9,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.Projeto_Microservico.Curso.entities.Categoria;
+import com.Projeto_Microservico.Curso.entities.ItemPedido;
 import com.Projeto_Microservico.Curso.entities.Pedidos;
 import com.Projeto_Microservico.Curso.entities.Produto;
 import com.Projeto_Microservico.Curso.entities.Usuario;
 import com.Projeto_Microservico.Curso.repositories.RepositorioCategoria;
+import com.Projeto_Microservico.Curso.repositories.RepositorioItemPedido;
 import com.Projeto_Microservico.Curso.repositories.RepositorioPedidos;
 import com.Projeto_Microservico.Curso.repositories.RepositorioProduto;
 import com.Projeto_Microservico.Curso.repositories.RepositorioUsuarios;
@@ -33,6 +35,9 @@ public class TestConfigu implements CommandLineRunner {
 
 	@Autowired
 	private RepositorioPedidos repositorioPedidos;
+	
+	@Autowired
+	private RepositorioItemPedido repositorioItemPedido; 
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -59,15 +64,19 @@ public class TestConfigu implements CommandLineRunner {
 		repositorioProduto.saveAll(Arrays.asList(pro1,pro2,pro3,pro4,pro5));
 		
 	
-		Usuario u1 = new Usuario(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
-		Usuario u2 = new Usuario(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
-		repositorioUsuarios.saveAll(Arrays.asList(u1, u2));
+		Usuario user1 = new Usuario(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
+		Usuario user2 = new Usuario(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
+		repositorioUsuarios.saveAll(Arrays.asList(user1, user2));
 		
-		Pedidos p1 = new Pedidos(null, Instant.parse("2019-06-20T19:53:07Z"), u1);
-		Pedidos p2 = new Pedidos(null, Instant.parse("2019-07-21T03:42:10Z"), u2);
-		Pedidos p3 = new Pedidos(null, Instant.parse("2019-07-22T15:21:22Z"), u1);
-
+		Pedidos pedido1 = new Pedidos(null, Instant.parse("2019-06-20T19:53:07Z"), user1);
+		Pedidos pedido2 = new Pedidos(null, Instant.parse("2019-07-21T03:42:10Z"), user2);
+		Pedidos pedido3 = new Pedidos(null, Instant.parse("2019-07-22T15:21:22Z"), user1);
+		repositorioPedidos.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 		
-		repositorioPedidos.saveAll(Arrays.asList(p1, p2, p3));
+		ItemPedido ItemDePedido1 = new ItemPedido(pedido1, pro1, 2, pro1.getPreco());
+		ItemPedido ItemDePedido2 = new ItemPedido(pedido1, pro3, 1, pro3.getPreco());
+		ItemPedido ItemDePedido3 = new ItemPedido(pedido2, pro3, 2, pro3.getPreco());
+		ItemPedido ItemDePedido4 = new ItemPedido(pedido3, pro5, 2, pro5.getPreco()); 
+		repositorioItemPedido.saveAll(Arrays.asList(ItemDePedido1,ItemDePedido2,ItemDePedido3,ItemDePedido4));
 	}
 }

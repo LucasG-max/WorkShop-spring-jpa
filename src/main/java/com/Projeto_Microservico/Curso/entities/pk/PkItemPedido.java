@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.Projeto_Microservico.Curso.entities.Pedidos;
 import com.Projeto_Microservico.Curso.entities.Produto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
@@ -15,6 +16,8 @@ public class PkItemPedido implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
@@ -39,6 +42,7 @@ public class PkItemPedido implements Serializable{
 		this.produto = produto;
 	}
 
+	@JsonIgnore
 	public Pedidos getPedidos() {
 		return pedidos;
 	}
@@ -63,11 +67,5 @@ public class PkItemPedido implements Serializable{
 		PkItemPedido other = (PkItemPedido) obj;
 		return Objects.equals(pedidos, other.pedidos) && Objects.equals(produto, other.produto);
 	}
-	
-	
-
-	
-	
-	
 
 }
