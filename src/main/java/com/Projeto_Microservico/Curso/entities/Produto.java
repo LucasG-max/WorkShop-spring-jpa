@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,25 +31,24 @@ public class Produto implements Serializable {
 	private String descricao;
 	private Double preco;
 	private String imgUrl;
-	
-	
+
+	@OneToMany(mappedBy = "id.produto")
+	private Set<ItemPedido> items = new HashSet<>();
+
 	@ManyToMany
-	@JoinTable(name = "tb_produto_categoria", 
-	joinColumns = @JoinColumn(name = "produto_id"), 
-	inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	@JoinTable(name = "tb_produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private Set<Categoria> categorias = new HashSet<>();
 
 	public Produto() {
 	}
 
 	public Produto(Long id, String nome, String descricao, Double preco, String imgUrl) {
-	    this.id = id;
-	    this.nome = nome;
-	    this.descricao = descricao;
-	    this.preco = preco;
-	    this.imgUrl = imgUrl;
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+		this.imgUrl = imgUrl;
 	}
-
 
 	public long getId() {
 		return id;
@@ -89,8 +91,17 @@ public class Produto implements Serializable {
 	}
 
 	public Set<Categoria> getCategorias() {
-	    return categorias;
-	    }
+		return categorias;
+	}
+
+	@JsonIgnore
+	public Set<Pedidos> getPedidos() {
+		Set<Pedidos> set = new HashSet<>();
+		for (ItemPedido x : items) {
+			set.add(x.getPedidos());
+		}
+		return set;
+	}
 
 	@Override
 	public int hashCode() {
