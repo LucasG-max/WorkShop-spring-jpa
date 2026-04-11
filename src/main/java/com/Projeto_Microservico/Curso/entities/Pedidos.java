@@ -83,6 +83,14 @@ public class Pedidos implements Serializable {
 	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
 	}
+	
+	public Double Total() {
+		Double soma = 0.0;
+		for(ItemPedido x : items) {
+			soma += x.getSubTotal();
+		}
+		return soma;
+	}
 
 	public StatusPedido getStatusPedido() {
 		return StatusPedido.ValueOf(statusPedido);
