@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.Projeto_Microservico.Curso.entities.Categoria;
 import com.Projeto_Microservico.Curso.entities.ItemPedido;
+import com.Projeto_Microservico.Curso.entities.Pagamento;
 import com.Projeto_Microservico.Curso.entities.Pedidos;
 import com.Projeto_Microservico.Curso.entities.Produto;
 import com.Projeto_Microservico.Curso.entities.Usuario;
@@ -79,5 +80,8 @@ public class TestConfigu implements CommandLineRunner {
 		ItemPedido ItemDePedido3 = new ItemPedido(pedido2, pro3, 2, pro3.getPreco());
 		ItemPedido ItemDePedido4 = new ItemPedido(pedido3, pro5, 2, pro5.getPreco()); 
 		repositorioItemPedido.saveAll(Arrays.asList(ItemDePedido1,ItemDePedido2,ItemDePedido3,ItemDePedido4));
+		
+		Pagamento pagamento1 = new Pagamento(null,Instant.parse("2019-06-20T20:15:07Z"),pedido1);
+		pedido1.setPagamento(pagamento1);
 	}
 }
