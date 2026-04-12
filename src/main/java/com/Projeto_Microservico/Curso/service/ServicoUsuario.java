@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.Projeto_Microservico.Curso.entities.Usuario;
 import com.Projeto_Microservico.Curso.repositories.RepositorioUsuarios;
+import com.Projeto_Microservico.Curso.service.exceptions.ResourceNotFoundException;
 
 @Service
 public class ServicoUsuario {
@@ -21,7 +22,7 @@ public class ServicoUsuario {
 	
 	public Usuario encontrarId(long id) {
 		Optional<Usuario> obj = repositorio.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	
