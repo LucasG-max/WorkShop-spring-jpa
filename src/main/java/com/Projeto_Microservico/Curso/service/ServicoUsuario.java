@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.Projeto_Microservico.Curso.entities.Usuario;
 import com.Projeto_Microservico.Curso.repositories.RepositorioUsuarios;
@@ -26,8 +24,13 @@ public class ServicoUsuario {
 		return obj.get();
 	}
 	
-	@PostMapping
+	
 	public Usuario inserir(Usuario obj){
 		return repositorio.save(obj);
+	}
+	
+	
+	public void deletar(Long id) {
+		repositorio.deleteById(id);
 	}
 }
