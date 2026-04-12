@@ -13,6 +13,8 @@ import com.Projeto_Microservico.Curso.repositories.RepositorioUsuarios;
 import com.Projeto_Microservico.Curso.service.exceptions.DatabaseException;
 import com.Projeto_Microservico.Curso.service.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class ServicoUsuario {
 
@@ -44,9 +46,14 @@ public class ServicoUsuario {
 	}
 
 	public Usuario updateUSuario(Long id, Usuario obj) {
-		Usuario entity = repositorio.getReferenceById(id);
-		updateUsuario(entity, obj);
-		return repositorio.save(entity);
+		try {
+			Usuario entity = repositorio.getReferenceById(id);
+			updateUsuario(entity, obj);
+			return repositorio.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+
 	}
 
 	private void updateUsuario(Usuario entity, Usuario obj) {
